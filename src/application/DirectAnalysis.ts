@@ -388,7 +388,7 @@ const withProcessCancellation = async <Value>(
   if (suppliedSignal !== undefined) return operation(suppliedSignal);
   const controller = new AbortController();
   const cancel = (): void => controller.abort();
-  process.once("SIGINT", cancel);
+  process.on("SIGINT", cancel);
   try {
     return await operation(controller.signal);
   } finally {
